@@ -1,0 +1,292 @@
+⚙️ Full Auth0 Terraform Import Command Reference
+
+Each Auth0 resource type has:
+
+Its Terraform resource type
+
+The naming convention in your .tf (left-hand side)
+
+The import ID (what you’ll get from the Auth0 dashboard or API)
+
+And the example command for importing it.
+
+🧱 1. Applications (Clients)
+Purpose:
+
+Represents apps registered in Auth0 (Web App, SPA, Native, M2M, etc.)
+
+Where to find the ID:
+
+Dashboard → Applications → [Your App] → Settings → Client ID
+
+Terraform Resource:
+
+auth0_client
+
+Example:
+terraform import auth0_client.web_app nKOqzkFxgHkhYu5PyJWJnXlpxgYM7byC
+
+🌐 2. APIs (Resource Servers)
+Purpose:
+
+Represents APIs that define permissions (scopes) your apps can request.
+
+Where to find the ID:
+
+Dashboard → APIs → [Your API] → Settings → API Identifier
+(ID = UUID visible in URL or from Auth0 Management API)
+
+Terraform Resource:
+
+auth0_resource_server
+
+Example:
+terraform import auth0_resource_server.api_server 68f420a69642a3ee0c07248d
+
+🔑 3. Database Connections
+Purpose:
+
+Represents your Auth0-hosted user database (“Username-Password-Authentication”).
+
+Where to find the ID:
+
+Dashboard → Authentication → Database → [Your DB Connection] → Name
+
+Terraform Resource:
+
+auth0_connection
+
+Example:
+terraform import auth0_connection.db_connection Username-Password-Authentication
+
+🧍‍♂️ 4. Social Connections
+Purpose:
+
+Integrations with social providers like Google, GitHub, Facebook, etc.
+
+Where to find the ID:
+
+Dashboard → Authentication → Social → [Provider] → Name
+
+Terraform Resource:
+
+auth0_connection
+
+Example:
+terraform import auth0_connection.google_oauth2 google-oauth2
+
+🏢 5. Enterprise Connections
+Purpose:
+
+Enterprise IdPs (AD, SAML, OIDC, Azure AD, etc.)
+
+Where to find the ID:
+
+Dashboard → Authentication → Enterprise → [Connection] → Name
+
+Terraform Resource:
+
+auth0_connection
+
+Example:
+terraform import auth0_connection.azure_ad_connection my-azuread-connection
+
+🔄 6. Actions
+Purpose:
+
+Custom scripts that run during Auth0 flows (post-login, pre-user registration, etc.)
+
+Where to find the ID:
+
+Dashboard → Actions → Library → [Action] → URL contains ID
+
+Terraform Resource:
+
+auth0_action
+
+Example:
+terraform import auth0_action.post_login_action act_2bGx4Yn4Jx8g3bWc
+
+⚙️ 7. Triggers (Action Bindings)
+Purpose:
+
+Defines when a specific action executes (binding between trigger & action).
+
+Where to find the ID:
+
+Usually managed as part of the action in dashboard; Terraform ID = trigger type.
+
+Terraform Resource:
+
+auth0_trigger_binding
+
+Example:
+terraform import auth0_trigger_binding.post_login_binding post-login
+
+🧩 8. Rules (Legacy system)
+Purpose:
+
+Older scripting system before Actions (still widely used).
+
+Where to find the ID:
+
+Dashboard → Actions → Rules (Legacy) → Rule name or via API.
+
+Terraform Resource:
+
+auth0_rule
+
+Example:
+terraform import auth0_rule.add_custom_claims_rule rul_xKsj8jh62KLJHJ
+
+🧑‍💼 9. Roles
+Purpose:
+
+RBAC roles that group permissions for users or applications.
+
+Where to find the ID:
+
+Dashboard → User Management → Roles → [Role] → URL
+
+Terraform Resource:
+
+auth0_role
+
+Example:
+terraform import auth0_role.admin_role rol_p2rWJuk3sRg0J7vH
+
+🔒 10. Permissions (API Scopes)
+Purpose:
+
+Permissions defined inside an API (resource server).
+
+Where to find the ID:
+
+Inside API → “Permissions” tab → scope names (part of auth0_resource_server definition)
+
+⚠️ You don’t import these separately — they come with the auth0_resource_server resource.
+
+👥 11. Organizations
+Purpose:
+
+B2B feature for grouping users and tenants.
+
+Where to find the ID:
+
+Dashboard → Organizations → [Org] → URL contains ID
+
+Terraform Resource:
+
+auth0_organization
+
+Example:
+terraform import auth0_organization.acme_org org_t3HyxK35AkzFwUsB
+
+📄 12. Custom Domains
+Purpose:
+
+Your custom branded login domain (e.g. login.mycompany.com).
+
+Where to find the ID:
+
+Dashboard → Branding → Custom Domains → ID in URL
+
+Terraform Resource:
+
+auth0_custom_domain
+
+Example:
+terraform import auth0_custom_domain.custom_login_domain cd_1a2b3c4d5e6f7g8h
+
+📧 13. Email Templates
+Purpose:
+
+Custom email templates for signup, verification, password reset, etc.
+
+Where to find the ID:
+
+Dashboard → Branding → Email Templates → Choose Template (type)
+
+Terraform Resource:
+
+auth0_email_template
+
+Example:
+terraform import auth0_email_template.verification_email verify_email
+
+📤 14. Log Streams
+Purpose:
+
+For sending logs to external systems (Datadog, Splunk, AWS EventBridge, etc.)
+
+Where to find the ID:
+
+Dashboard → Monitoring → Log Streams → [Stream] → URL
+
+Terraform Resource:
+
+auth0_log_stream
+
+Example:
+terraform import auth0_log_stream.datadog_stream lst_2bVx4Yn4Jx8g3bWc
+
+🧭 15. Branding Settings
+Purpose:
+
+Controls Universal Login settings (colors, logos, page templates).
+
+Where to find the ID:
+
+Automatically managed — no manual ID needed, just import via tenant name.
+
+Terraform Resource:
+
+auth0_branding
+
+Example:
+terraform import auth0_branding.branding_settings branding
+
+🧾 16. Tenant Settings
+Purpose:
+
+Global Auth0 tenant settings (friendly name, default directory, etc.)
+
+Where to find the ID:
+
+Applies to the entire tenant — no unique ID, just use "tenant" as key.
+
+Terraform Resource:
+
+auth0_tenant
+
+Example:
+terraform import auth0_tenant.tenant tenant
+
+🧩 Summary Table
+Resource	Terraform Type	Example Import ID	Example Command
+Web App	auth0_client	nKOqzkFxgHkhYu5PyJWJnXlpxgYM7byC	terraform import auth0_client.web_app nKOqzkFxgHkhYu5PyJWJnXlpxgYM7byC
+API	auth0_resource_server	68f420a69642a3ee0c07248d	terraform import auth0_resource_server.api_server 68f420a69642a3ee0c07248d
+DB Connection	auth0_connection	Username-Password-Authentication	terraform import auth0_connection.db_connection Username-Password-Authentication
+Social Connection	auth0_connection	google-oauth2	terraform import auth0_connection.google_oauth2 google-oauth2
+Action	auth0_action	act_2bGx4Yn4Jx8g3bWc	terraform import auth0_action.post_login_action act_2bGx4Yn4Jx8g3bWc
+Rule	auth0_rule	rul_xKsj8jh62KLJHJ	terraform import auth0_rule.add_custom_claims_rule rul_xKsj8jh62KLJHJ
+Role	auth0_role	rol_p2rWJuk3sRg0J7vH	terraform import auth0_role.admin_role rol_p2rWJuk3sRg0J7vH
+Organization	auth0_organization	org_t3HyxK35AkzFwUsB	terraform import auth0_organization.acme_org org_t3HyxK35AkzFwUsB
+Custom Domain	auth0_custom_domain	cd_1a2b3c4d5e6f7g8h	terraform import auth0_custom_domain.custom_login_domain cd_1a2b3c4d5e6f7g8h
+Email Template	auth0_email_template	verify_email	terraform import auth0_email_template.verification_email verify_email
+Log Stream	auth0_log_stream	lst_2bVx4Yn4Jx8g3bWc	terraform import auth0_log_stream.datadog_stream lst_2bVx4Yn4Jx8g3bWc
+Branding	auth0_branding	branding	terraform import auth0_branding.branding_settings branding
+Tenant	auth0_tenant	tenant	terraform import auth0_tenant.tenant tenant
+🎯 Final Goal
+
+When you’ve imported all relevant resources, you’ll run:
+
+terraform plan
+
+
+and see:
+
+No changes. Your infrastructure matches the configuration.
+
+
+That means Terraform now fully manages your Auth0 tenant — from apps to APIs to branding — 100% IaC.
