@@ -1,0 +1,36 @@
+terraform import auth0_client.default_app nKOqzkFxgHkhYu5PyJWJnXlpxgYM7byC
+terraform import auth0_client.m2m_app B2XPoerfHs2PmC97bQfdc2ldhJ7xyzZC
+terraform import auth0_client.frontend_spa 7HgtP2xya8jQr9Db8YJ13pRfs3Wv2abc
+
+terraform import auth0_resource_server.api_server 68f420a69642a3ee0c07248d
+terraform import auth0_resource_server.analytics_api 2d5412cd223e34708c16abc2
+
+terraform import auth0_connection.db_connection "Username-Password-Authentication"
+terraform import auth0_connection.google_connection "google-oauth2"
+terraform import auth0_connection.github_connection "github"
+
+terraform import auth0_rule.add_metadata_rule "Add metadata on login"
+terraform import auth0_rule.check_email_verified_rule "Check Email Verified"
+
+terraform import auth0_action.post_login_action act_MqU84X8K8zxVqNw3
+terraform import auth0_action.send_welcome_email_action act_cUw54GzN9pQiZo7b
+
+terraform import auth0_role.admin_role rol_wI0zgkDeUhEIXCjS
+terraform import auth0_role.viewer_role rol_Fw3Ls3ypB9Nv4N3E
+
+terraform import auth0_organization.customer_org org_EpJ1Hq7CbHbtk5f8
+terraform import auth0_organization.partner_org org_QW9zJf62xqZHyD3k
+
+terraform import auth0_custom_domain.primary_custom_domain cdn_7BoOQ11W9uX9sTql
+
+terraform import auth0_email_provider.default_email_provider ""
+
+terraform import auth0_email_template.verify_email_template "verify_email"
+terraform import auth0_email_template.welcome_email_template "welcome_email"
+terraform import auth0_email_template.reset_email_template "reset_email"
+
+terraform import auth0_branding.branding ""
+
+terraform import auth0_guardian.guardian ""
+
+terraform import auth0_tenant.tenant ""
